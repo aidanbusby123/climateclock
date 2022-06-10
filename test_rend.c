@@ -9,7 +9,7 @@ int main(int argc, char **argv){
     int x, y;
 
     options.rows = 32;
-    options.chain_length = 1;
+    options.chain_length = 3;
 
     ctx = led_matrix_create_from_options(&options, &argc, &argv);
     vbuf = led_matrix_create_offscreen_canvas(ctx);
@@ -20,6 +20,8 @@ int main(int argc, char **argv){
                 led_canvas_set_pixel(vbuf, x, y, 255, 255, 255);
             }
         }
+        x = 0;
+        y = 0;
         vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
     }
     led_matrix_delete(ctx);
