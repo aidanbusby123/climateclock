@@ -17,7 +17,7 @@ int main(int argc, char **argv){
     while (1){
         for (y = 0; y < height; y++){
             for (x = 0; x < height; x++){
-                led_canvas_set_pixel(vbuf, 255, 255, 255, x, y);
+                led_canvas_set_pixel(vbuf, x, y, 255, 255, 255);
             }
         }
         x = 0;
