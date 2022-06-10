@@ -14,12 +14,14 @@ int main(int argc, char **argv){
     ctx = led_matrix_create_from_options(&options, &argc, &argv);
     vbuf = led_matrix_create_offscreen_canvas(ctx);
     led_canvas_get_size(vbuf, &width, &height);
-
-    for (y = 0; y < height; y++){
-        for (x = 0; x < height; x++){
-            led_canvas_set_pixel(vbuf, x, y, 255, 255, 255);
+    while (1){
+        for (y = 0; y < height; y++){
+            for (x = 0; x < height; x++){
+                led_canvas_set_pixel(vbuf, x, y, 255, 255, 255);
+            }
         }
+        vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
     }
-    vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
-
+    led_matrix_delete(ctx);
+    return 0;
 }
