@@ -12,6 +12,8 @@ int main(int argc, char **argv){
     options.chain_length = 3;
 
     ctx = led_matrix_create_from_options(&options, &argc, &argv);
+    if (ctx == NULL)
+        return 1;
     vbuf = led_matrix_create_offscreen_canvas(ctx);
     led_canvas_get_size(vbuf, &width, &height);
     while (1){
