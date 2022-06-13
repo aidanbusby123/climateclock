@@ -18,7 +18,7 @@ int main(int argc, char **argv){
     led_canvas_get_size(vbuf, &width, &height);
     while (1){
         for (y = 0; y < height; y++){
-            for (x = 0; x < (1/6)*x; x++){
+            for (x = 0; x < (1/6)*width; x++){
                 led_canvas_set_pixel(vbuf, x, y, 64, 6*x, 0);
             }
         }
