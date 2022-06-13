@@ -19,7 +19,7 @@ int main(int argc, char **argv){
     while (1){
         for (y = 0; y < height; ++y){
             for (x = 0; x < width; ++x){
-                led_canvas_set_pixel(vbuf, x, y, 128, 0, 0);
+                led_canvas_set_pixel(vbuf, x, y, 64, 0, 0);
             }
         }
         vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
