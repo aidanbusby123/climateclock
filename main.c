@@ -217,12 +217,12 @@ int main(int argc, char **argv){
                     nleapyears = 0;
                 }
                 while (currenttime-secs < 86400){
-                    while (lock == 0);
-                    lock = 1;
+                    
                     currenttime = time(NULL);
                     while (currenttime == time(NULL));
                     json_timestamp_struct.seconds -= 1;
-
+                    while (lock == 0);
+                    lock = 1;
                     if (json_timestamp_struct.seconds < 0){
                         json_timestamp_struct.minutes -= 1;
                         json_timestamp_struct.seconds += 60;
