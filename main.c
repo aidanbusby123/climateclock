@@ -85,14 +85,15 @@ int json_time_stamp_to_seconds(char *json_timestamp){
 
 void *render(void* arg){
     font = load_font("~/rpi-rgb-led-matrix/fonts/10x20.bdf");
+    char *clock_text;
     int temp_time = 0;
     while (1){
     temp_time= time(NULL);
     if(time(NULL) - temp_time == 0);
         if (lock == 0){
-            printf("%d years %d days %d hours %d minutes %d seconds\n", json_timestamp_struct.years, json_timestamp_struct.days, json_timestamp_struct.hours, json_timestamp_struct.minutes, json_timestamp_struct.seconds);
+            sprintf(clock_text, "%d years %d days %d hours %d minutes %d seconds\n", json_timestamp_struct.years, json_timestamp_struct.days, json_timestamp_struct.hours, json_timestamp_struct.minutes, json_timestamp_struct.seconds);
             lock = 1;
-            draw_text(vbuf, font, 0, 0, 128, 128, 128, "hi", 0);
+            draw_text(vbuf, font, 0, 0, 128, 128, 128, clock_text, 0);
             
         }
     }
