@@ -93,7 +93,7 @@ void *render(void* arg){
         if (lock == 0){
             sprintf(clock_text, "%d years %d days %d:%d:%d", json_timestamp_struct.years, json_timestamp_struct.days, json_timestamp_struct.hours, json_timestamp_struct.minutes, json_timestamp_struct.seconds);
             lock = 1;
-            draw_text(vbuf, font, 0, 0, 128, 128, 128, clock_text, 0);
+            draw_text(vbuf, font, 0, 0, 64, 64, 64, clock_text, 0);
             vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
             
         }
@@ -107,7 +107,6 @@ static size_t write_to_buffer(char *data, size_t size, size_t nmemb, void *strea
     resp->buffer = ptr;
     for (int i = 0; i < realsize; i++){
         resp->buffer[resp->size+i] = data[i];
-        //putchar(resp->buffer[resp->size+i]);
     }
     resp->size += realsize;
     resp->buffer[resp->size] = 0;
@@ -120,14 +119,13 @@ int main(int argc, char **argv){
 
     options.rows = 32;
     options.chain_length = 1;
-
+//putchar(resp->buffer[resp->size+i]);
     ctx = led_matrix_create_from_options(&options, &argc, &argv);
     if (ctx == NULL)
         return 1;
     vbuf = led_matrix_create_offscreen_canvas(ctx);
     led_canvas_get_size(vbuf, &width, &height);
 
-    char time_buf[32];
     time_t secs = time(NULL);
     time_t clock_time;
 
