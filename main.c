@@ -92,9 +92,10 @@ void *render(void* arg){
     if(time(NULL) - temp_time == 0);
         if (lock == 0){
             sprintf(clock_text, "%d years %d days %d:%d:%d", json_timestamp_struct.years, json_timestamp_struct.days, json_timestamp_struct.hours, json_timestamp_struct.minutes, json_timestamp_struct.seconds);
+            printf("%d years %d days %d:%d:%d", json_timestamp_struct.years, json_timestamp_struct.days, json_timestamp_struct.hours, json_timestamp_struct.minutes, json_timestamp_struct.seconds);
+
             lock = 1;
             draw_text(vbuf, font, 0, 0, 64, 64, 64, clock_text, 0);
-            sleep(1);
             vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
             
         }
