@@ -244,10 +244,6 @@ int main(int argc, char **argv){
                         json_timestamp_struct.days += 365;
                     }
 
-                    
-                    lock = 0;
-                    
-                    
                 }
             }
     } else {
