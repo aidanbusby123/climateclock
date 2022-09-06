@@ -86,16 +86,16 @@ int json_time_stamp_to_seconds(char *json_timestamp){
 void *render(void* arg){
     font = load_font("~/rpi-rgb-led-matrix/fonts/10x20.bdf");
     char clock_text[50];
-    int temp_time = 0;
-    int years = json_timestamp_struct.years;
-    int days = json_timestamp_struct.days;
-    int hours = json_timestamp_struct.hours;
-    int minutes = json_timestamp_struct.minutes;
-    int seconds = json_timestamp_struct.seconds;
+    temp_time = 0;
+    int years, days, hours, minutes, seconds;
     while (1){
     temp_time= time(NULL);
     if(time(NULL) - temp_time == 0);
-        
+        years = json_timestamp_struct.years;
+        days = json_timestamp_struct.days;
+        hours = json_timestamp_struct.hours;
+        minutes = json_timestamp_struct.minutes;
+        seconds = json_timestamp_struct.seconds;
             sprintf(clock_text, "%d years %d days %d:%d:%d", years, days, hours, minutes, seconds);
             printf("%d years %d days %d:%d:%d\n", years, days, hours, minutes, seconds);
 
