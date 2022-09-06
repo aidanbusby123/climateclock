@@ -86,7 +86,7 @@ int json_time_stamp_to_seconds(char *json_timestamp){
 void *render(void* arg){
     font = load_font("~/rpi-rgb-led-matrix/fonts/10x20.bdf");
     char clock_text[50];
-    temp_time = 0;
+    int temp_time = 0;
     int years, days, hours, minutes, seconds;
     while (1){
     temp_time= time(NULL);
