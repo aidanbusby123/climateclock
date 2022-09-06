@@ -24,7 +24,7 @@ struct timestamp_struct{
     int minutes;
     int seconds;
 }json_timestamp_struct, currenttime_struct, deadline_struct;
-int lock = 0;
+
 
 int json_time_stamp_to_seconds(char *json_timestamp){
 
@@ -87,18 +87,23 @@ void *render(void* arg){
     font = load_font("~/rpi-rgb-led-matrix/fonts/10x20.bdf");
     char clock_text[50];
     int temp_time = 0;
+    int years = json_timestamp_struct.years;
+    int days = json_timestamp_struct.days;
+    int hours = json_timestamp_struct.hours;
+    int minutes = json_timestamp_struct.minutes;
+    int seconds = json_timestamp_struct.seconds;
     while (1){
     temp_time= time(NULL);
     if(time(NULL) - temp_time == 0);
-        if (lock == 0){
-            sprintf(clock_text, "%d years %d days %d:%d:%d", json_timestamp_struct.years, json_timestamp_struct.days, json_timestamp_struct.hours, json_timestamp_struct.minutes, json_timestamp_struct.seconds);
-            printf("%d years %d days %d:%d:%d\n", json_timestamp_struct.years, json_timestamp_struct.days, json_timestamp_struct.hours, json_timestamp_struct.minutes, json_timestamp_struct.seconds);
+        
+            sprintf(clock_text, "%d years %d days %d:%d:%d", years, days, hours, minutes, seconds);
+            printf("%d years %d days %d:%d:%d\n", years, days, hours, minutes, seconds);
 
             
             draw_text(vbuf, font, 0, 0, 64, 64, 64, clock_text, 0);
             vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
-            lock = 1;
-        }
+            
+        
     }
 }
 
@@ -221,8 +226,7 @@ int main(int argc, char **argv){
                     currenttime = time(NULL);
                     while (currenttime == time(NULL));
                     json_timestamp_struct.seconds -= 1;
-                    while (lock == 0);
-                    lock = 1;
+                   
                     if (json_timestamp_struct.seconds < 0){
                         json_timestamp_struct.minutes -= 1;
                         json_timestamp_struct.seconds += 60;
