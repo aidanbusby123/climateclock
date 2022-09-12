@@ -84,8 +84,8 @@ int json_time_stamp_to_seconds(char *json_timestamp){
 }
 
 void *render(void* arg){
-    font = load_font("~/rpi-rgb-led-matrix/fonts/10x20.bdf");
-    char clock_text[50];
+    font = load_font("/home/clock/rpi-rgb-led-matrix/fonts/10x20.bdf");
+    char clock_text[50] = {0};
     int temp_time = 0;
     int years, days, hours, minutes, seconds;
     while (1){
@@ -96,12 +96,13 @@ void *render(void* arg){
         hours = json_timestamp_struct.hours;
         minutes = json_timestamp_struct.minutes;
         seconds = json_timestamp_struct.seconds;
-            sprintf(clock_text, "%d years %d days %d:%d:%d", years, days, hours, minutes, seconds);
-            printf("%d years %d days %d:%d:%d\n", years, days, hours, minutes, seconds);
+            sprintf(clock_text, "%dyears %ddays %d:%d:%d", years, days, hours, minutes, seconds);
+            printf("%dyears %ddays %d:%d:%d\n", years, days, hours, minutes, seconds);
 
-            
-            draw_text(vbuf, font, 0, 0, 64, 64, 64, clock_text, 0);
+            draw_text(vbuf, font, 0, 13, 125, 15, 15, (const char*)clock_text, -2);
             vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
+            led_canvas_clear(vbuf);
+            //sleep(1);
             
         
     }
