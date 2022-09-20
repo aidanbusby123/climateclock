@@ -86,6 +86,8 @@ int json_time_stamp_to_seconds(char *json_timestamp){
 void *render(void* arg){
     font = load_font("/home/clock/rpi-rgb-led-matrix/fonts/10x20.bdf");
     char clock_text[50] = {0};
+    char renewables_1_text[50] = {0};
+    float renewables_1_rate_c = 0;
     int temp_time = 0;
     int years, days, hours, minutes, seconds;
     while (1){
@@ -96,15 +98,15 @@ void *render(void* arg){
         hours = json_timestamp_struct.hours;
         minutes = json_timestamp_struct.minutes;
         seconds = json_timestamp_struct.seconds;
-            sprintf(clock_text, "%dyears %ddays %d:%d:%d", years, days, hours, minutes, seconds);
-            printf("%dyears %ddays %d:%d:%d\n", years, days, hours, minutes, seconds);
+        sprintf(clock_text, "%dyears %ddays %d:%d:%d", years, days, hours, minutes, seconds);
+        printf("%dyears %ddays %d:%d:%d\n", years, days, hours, minutes, seconds);
 
-            draw_text(vbuf, font, 0, 13, 125, 15, 15, (const char*)clock_text, -2);
-            vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
-            led_canvas_clear(vbuf);
-            //sleep(1);
-            
-        
+        sprintf(renewables_1_text, "%lf", (time(NULL)-c_data.renewables_1_seconds)*c_data.renewables_1_rate + c_data.renewables_1_initial);
+        printf("%lf", (time(NULL)-c_data.renewables_1_seconds)*c_data.renewables_1_rate + c_data.renewables_1_initial);
+
+        draw_text(vbuf, font, 0, 13, 125, 15, 15, (const char*)clock_text, -2);
+        vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
+        led_canvas_clear(vbuf);
     }
 }
 
@@ -144,6 +146,8 @@ int main(int argc, char **argv){
     curl = curl_easy_init();
 
     struct response chunk = {0};
+    while (!curl)sleep(1);
+    
     if (curl){
         curl_easy_setopt(curl, CURLOPT_URL, API_URL);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_to_buffer);
@@ -154,7 +158,7 @@ int main(int argc, char **argv){
         pthread_create(&tid, NULL, render, NULL);
 
         
-            res = curl_easy_perform(curl);
+            while ((res = curl_easy_perform(curl)) != 0);
             json_p(resp, &c_data);
             printf("%s\n", c_data.carbon_deadline_1);
             int seconds = 0;
@@ -162,6 +166,7 @@ int main(int argc, char **argv){
             int nleapyears = 0;
 
             seconds = json_time_stamp_to_seconds(c_data.carbon_deadline_1);
+            c_data.renewables_seconds = json_time_stamp_to_seconds(c_data.renewables_1_timestamp);
             currenttime_struct.seconds = currenttime;
             currenttime_struct.minutes = currenttime_struct.seconds / 60;
             currenttime_struct.seconds %= 60;
@@ -193,6 +198,7 @@ int main(int argc, char **argv){
                     json_p(resp, &c_data);
                     secs = time(NULL);
                     seconds = json_time_stamp_to_seconds(c_data.carbon_deadline_1);
+                    c_data.renewables_seconds = json_time_stamp_to_seconds(c_data.renewables_1_timestamp);
                     currenttime_struct.seconds = currenttime;
                     currenttime_struct.minutes = currenttime_struct.seconds / 60;
                     currenttime_struct.seconds %= 60;

@@ -7,6 +7,8 @@ struct response{
 struct clock_data{
     char *carbon_deadline_1;
     char *renewables_1_timestamp;
-    int renewables_1_rate; 
+    int renewables_1_seconds;
+    double renewables_1_rate; 
+    double renewables_1_initial;
 };
 #endif
