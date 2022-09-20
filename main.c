@@ -198,7 +198,7 @@ int main(int argc, char **argv){
                     json_p(resp, &c_data);
                     secs = time(NULL);
                     seconds = json_time_stamp_to_seconds(c_data.carbon_deadline_1);
-                    c_data.renewables_seconds = json_time_stamp_to_seconds(c_data.renewables_1_timestamp);
+                    c_data.renewables_1_seconds = json_time_stamp_to_seconds(c_data.renewables_1_timestamp);
                     currenttime_struct.seconds = currenttime;
                     currenttime_struct.minutes = currenttime_struct.seconds / 60;
                     currenttime_struct.seconds %= 60;
