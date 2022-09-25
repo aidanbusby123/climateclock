@@ -87,7 +87,6 @@ void *render(void* arg){
     font = load_font("/home/clock/rpi-rgb-led-matrix/fonts/10x20.bdf");
     char clock_text[50] = {0};
     char renewables_1_text[50] = {0};
-    long double renewables_1_rate_c = 0;
     int temp_time = 0;
     int years, days, hours, minutes, seconds;
     while (1){
