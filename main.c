@@ -101,8 +101,8 @@ void *render(void* arg){
         sprintf(clock_text, "%dyears %ddays %d:%d:%d", years, days, hours, minutes, seconds);
         printf("%dyears %ddays %d:%d:%d\n", years, days, hours, minutes, seconds);
 
-        sprintf(renewables_1_text, "%lf", (time(NULL)-c_data.renewables_1_seconds)*c_data.renewables_1_rate + c_data.renewables_1_initial);
-        printf("%lf\n", ((long double)time(NULL)-(long double)c_data.renewables_1_seconds)*(long double)c_data.renewables_1_rate + (long double)c_data.renewables_1_initial);
+        sprintf(renewables_1_text, "%Lf", ((long double)time(NULL)-(long double)c_data.renewables_1_seconds)*(long double)c_data.renewables_1_rate + (long double)c_data.renewables_1_initial);
+        printf("%Lf\n", ((long double)time(NULL)-(long double)c_data.renewables_1_seconds)*(long double)c_data.renewables_1_rate + (long double)c_data.renewables_1_initial);
 
         draw_text(vbuf, font, 0, 13, 125, 15, 15, (const char*)clock_text, -2);
         draw_text(vbuf, font, 0, 32, 0, 200, 255, renewables_1_text, -2);
