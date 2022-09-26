@@ -97,14 +97,14 @@ void *render(void* arg){
         hours = json_timestamp_struct.hours;
         minutes = json_timestamp_struct.minutes;
         seconds = json_timestamp_struct.seconds;
-        sprintf(clock_text, "%dYEARS %dDAYS %02d:%2d:%2d", years, days, hours, minutes, seconds);
+        sprintf(clock_text, "%dYEARS %dDAYS %02d:%02d:%02d", years, days, hours, minutes, seconds);
         //printf("%dyears %ddays %02d:%02d:%02d\n", years, days, hours, minutes, seconds);
 
         sprintf(renewables_1_text, "%lf WORLD'S ENERGY FROM RENEWABLES", ((double)time(NULL)-(double)c_data.renewables_1_seconds)*(double)c_data.renewables_1_rate + (double)c_data.renewables_1_initial);
         //printf("%lf\n", ((double)time(NULL)-(double)c_data.renewables_1_seconds)*(double)c_data.renewables_1_rate + (double)c_data.renewables_1_initial);
 
         draw_text(vbuf, font, 0, 13, 125, 15, 15, (const char*)clock_text, -2);
-        draw_text(vbuf, font, 0, 32, 0, 100, 127, renewables_1_text, -2);
+        draw_text(vbuf, font, 0, 32, 0, 50, 64, renewables_1_text, -2);
         vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
         led_canvas_clear(vbuf);
     }
