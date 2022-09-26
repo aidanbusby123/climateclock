@@ -14,7 +14,7 @@ struct RGBLedMatrixOptions options = {0};
 struct RGBLedMatrix *ctx;
 struct LedCanvas *vbuf;
 struct LedFont *font;
-
+struct LedFont *small_font;
 struct response *resp;
 struct clock_data c_data = {0};
 struct timestamp_struct{
@@ -85,6 +85,7 @@ int json_time_stamp_to_seconds(char *json_timestamp){
 
 void *render(void* arg){
     font = load_font("/home/clock/rpi-rgb-led-matrix/fonts/10x20.bdf");
+    small_font = load_font("/home/clock/rpi-rgb-led-matrix/fonts/7x14.bdf");
     char clock_text[50] = {0};
     char renewables_1_text[50] = {0};
     int temp_time = 0;
@@ -100,11 +101,12 @@ void *render(void* arg){
         sprintf(clock_text, "%dYEARS %dDAYS %02d:%02d:%02d", years, days, hours, minutes, seconds);
         //printf("%dyears %ddays %02d:%02d:%02d\n", years, days, hours, minutes, seconds);
 
-        sprintf(renewables_1_text, "%lf WORLD'S ENERGY FROM RENEWABLES", ((double)time(NULL)-(double)c_data.renewables_1_seconds)*(double)c_data.renewables_1_rate + (double)c_data.renewables_1_initial);
+        sprintf(renewables_1_text, "%lf%%", ((double)time(NULL)-(double)c_data.renewables_1_seconds)*(double)c_data.renewables_1_rate + (double)c_data.renewables_1_initial);
         //printf("%lf\n", ((double)time(NULL)-(double)c_data.renewables_1_seconds)*(double)c_data.renewables_1_rate + (double)c_data.renewables_1_initial);
 
         draw_text(vbuf, font, 0, 13, 125, 15, 15, (const char*)clock_text, -2);
-        draw_text(vbuf, font, 0, 32, 0, 50, 64, renewables_1_text, -2);
+        draw_text(vbuf, font, 0, 32, 0, 100, 127, renewables_1_text, -2);
+        draw_text(vbuf, small_font, 86, 27, 0, 100, 127, "WORLD'S ENERGY\n FROM RENWABLES", 0);
         vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
         led_canvas_clear(vbuf);
     }
