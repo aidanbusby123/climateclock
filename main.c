@@ -106,7 +106,8 @@ void *render(void* arg){
 
         draw_text(vbuf, font, 0, 13, 125, 15, 15, (const char*)clock_text, -2);
         draw_text(vbuf, font, 0, 32, 0, 100, 127, renewables_1_text, -2);
-        draw_text(vbuf, small_font, 86, 27, 0, 100, 127, "WORLD'S ENERGY\n FROM RENWABLES", 0);
+        draw_text(vbuf, small_font, 86, 24, 0, 100, 127, "WORLD'S ENERGY", 0);
+        draw_text(vbuf, small_font, 86, 32, 0, 100, 127, "FROM RENEWABLES", 0);
         vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
         led_canvas_clear(vbuf);
     }
