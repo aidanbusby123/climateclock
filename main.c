@@ -104,7 +104,7 @@ void *render(void* arg){
         //printf("%lf\n", ((double)time(NULL)-(double)c_data.renewables_1_seconds)*(double)c_data.renewables_1_rate + (double)c_data.renewables_1_initial);
 
         draw_text(vbuf, font, 0, 13, 125, 15, 15, (const char*)clock_text, -2);
-        draw_text(vbuf, font, 0, 32, 0, 200, 255, renewables_1_text, -2);
+        draw_text(vbuf, font, 0, 32, 0, 100, 127, renewables_1_text, -2);
         vbuf = led_matrix_swap_on_vsync(ctx, vbuf);
         led_canvas_clear(vbuf);
     }
